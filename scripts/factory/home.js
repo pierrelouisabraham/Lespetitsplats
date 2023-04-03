@@ -77,6 +77,3 @@ function mediaFactory(data){
     return {displayRecipes};
 }
 
-function tagFactory(text) {
-    
-}

@@ -59,28 +59,29 @@ dropdown3.onclick = function() {
     ingredientSet.forEach(element => {
         const divIngredient = document.createElement("div");
         divIngredient.setAttribute("class", "option_ingredient");
+        divIngredient.setAttribute("id", element);
         divIngredient.textContent = element;
-        optionIngredients.appendChild(divIngredient)
-        console.log(element)
+        optionIngredients.appendChild(divIngredient);
     })
 }
 
 function displayDropdownUstensils() {
     ustensileSet.forEach(element => {
         const divUstensil = document.createElement("div");
-        divUstensil.setAttribute("class", "option_ingredient");
+        divUstensil.setAttribute("class", "option_ustensils");
         divUstensil.textContent = element;
-        optionUstensiles.appendChild(divUstensil)
-        console.log(element)
+        optionUstensiles.appendChild(divUstensil);
     })
 }
 
 function displayDropdownAppareils() {
     appareilSet.forEach(element => {
         const divAppareil = document.createElement("div");
-        divAppareil.setAttribute("class", "option_ingredient");
+        divAppareil.setAttribute("class", "option_appareils");
         divAppareil.textContent = element;
-        optionAppareil.appendChild(divAppareil)
-        console.log(element)
+        optionAppareil.appendChild(divAppareil);
     })
+}
+
+function createTag() {
 }
