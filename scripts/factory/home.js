@@ -4,16 +4,7 @@ function mediaFactory(data){
     const  {id, name, ingredients, time, description} = data;
     
 
-    function displayIngredients() {
-        
-        ingredients.forEach(element => {
-            const {ingredient} = element;
-            
-            ingredientSet.add(ingredient)
-            
-        });
-        console.log(ingredientSet);    
-    }
+
     
     function displayRecipes() {
         const article = document.createElement('article');
@@ -83,7 +74,7 @@ function mediaFactory(data){
         return article;
     }
 
-    return {displayRecipes, displayIngredients};
+    return {displayRecipes};
 }
 
 function tagFactory(text) {

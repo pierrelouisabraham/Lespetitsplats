@@ -12,8 +12,6 @@ function getAppliance(data) {
     const  {appliance} = data;
 
     appareilSet.add(appliance);
-
-    console.log(appareilSet)
 }
 
 function getUstensils(data) {
@@ -22,6 +20,4 @@ function getUstensils(data) {
     ustensils.forEach(element => {
     ustensileSet.add(element);
     });
-
-    console.log(ustensileSet)
 }
