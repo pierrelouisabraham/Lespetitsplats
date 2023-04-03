@@ -10,6 +10,8 @@ const optionIngredients = document.querySelector("#options_ingredients")
 const optionUstensiles = document.querySelector("#options_ustensile")
 const optionAppareil = document.querySelector("#options_appareils")
 
+const divTag = document.querySelector(".tag-div")
+
 
 async function displayData(recipes) {
     const recipesSection = document.querySelector(".card-recipes");
@@ -83,5 +85,12 @@ function displayDropdownAppareils() {
     })
 }
 
-function createTag() {
+const divs = document.querySelectorAll('.option_ingredient');
+divs.forEach(el => el.addEventListener('click', event => {
+    createTag(event.target.getAttribute("id"));
+  }));
+
+function createTag(texte) {
+    const divTagAdd = document.createElement("div");
+    divTagAdd.setAttribute("class", "")
 }
