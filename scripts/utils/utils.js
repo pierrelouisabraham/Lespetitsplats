@@ -1,16 +1,27 @@
-async function getObjectFromJson(url) {
-    try{
-    const response = await fetch(url);
-    const data = await response.json();
-     return data;
-    } catch (e) {
-     console.log(e)
-    }
- }
+function getIngredients(data) {
+    const  {ingredients} = data;
+    ingredients.forEach(element => {
+        const {ingredient} = element;
+        
+        ingredientSet.add(ingredient)
+        
+    });
+}
 
- async function getRecipes() {
-    const data = await getObjectFromJson('../data/recipes.json');
-    const recipes = await data["recipes"];
-    return ({
-        recipes: [...recipes]})
- }
+function getAppliance(data) {
+    const  {appliance} = data;
+
+    appareilSet.add(appliance);
+
+    console.log(appareilSet)
+}
+
+function getUstensils(data) {
+    const  {ustensils} = data;
+
+    ustensils.forEach(element => {
+    ustensileSet.add(element);
+    });
+
+    console.log(ustensileSet)
+}

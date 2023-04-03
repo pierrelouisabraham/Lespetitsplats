@@ -1,5 +1,19 @@
+
+
 function mediaFactory(data){
     const  {id, name, ingredients, time, description} = data;
+    
+
+    function displayIngredients() {
+        
+        ingredients.forEach(element => {
+            const {ingredient} = element;
+            
+            ingredientSet.add(ingredient)
+            
+        });
+        console.log(ingredientSet);    
+    }
     
     function displayRecipes() {
         const article = document.createElement('article');
@@ -13,45 +27,63 @@ function mediaFactory(data){
 
         article.appendChild(divBack);
         article.appendChild(divText);
+        
 
         const divTitle = document.createElement('div');
         divTitle.setAttribute('id', 'div_title');
         divText.appendChild(divTitle);
 
-        const divName = document.createElement('h2');
-        divName.setAttribute('id', 'div_name');
-        divName.textContent = name;
-        divTitle.appendChild(divName);
+        const h2Name = document.createElement('h2');
+        h2Name.setAttribute('id', 'h2_name');
+        h2Name.textContent = name;
+        divTitle.appendChild(h2Name);
+
+        const divTimeIcon = document.createElement('div');
+        divTimeIcon.setAttribute('class', 'time_icone') 
+        divTitle.appendChild(divTimeIcon);
+
+
 
         const icone = document.createElement('i');
         icone.setAttribute('class', "fa-regular fa-clock");
-        divTitle.appendChild(icone)
+        divTimeIcon.appendChild(icone)
 
         const pTime = document.createElement('p');
         pTime.setAttribute('class', 'p_time');
         pTime.textContent = time + ' min';
-        divTitle.appendChild(pTime)
+        divTimeIcon.appendChild(pTime);
+
+        const divRecipe = document.createElement('div');
+        divRecipe.setAttribute('class', 'text_recipe');
+        divText.appendChild(divRecipe);
 
         const divIngredients = document.createElement('div');
         divIngredients.setAttribute("class", 'div_ingredients');
-        divText.appendChild(divIngredients);
+        divRecipe.appendChild(divIngredients);
 
-        const pIngredients = document.createElement("p")
-        pIngredients.setAttribute("class", "p_ingredients");
 
         ingredients.forEach(element => {
             const {ingredient, quantity, unit} = element;
             
-            pIngredients.textContent += ingredient + ":" + quantity + unit;
-            console.log(element)
+            const pIngredients = document.createElement("p")
+            pIngredients.setAttribute("class", "p_ingredients");
+            pIngredients.textContent += ingredient  +  (quantity ? ": " +  quantity + " " + (unit ? unit:" ") : " ");
+            divIngredients.appendChild(pIngredients);
         });
 
         
-        divIngredients.appendChild(pIngredients);
+        
+
+        const divDescription = document.createElement('div');
+        divDescription.setAttribute('class', 'div_description');
+        divDescription.textContent = description;
+        divRecipe.appendChild(divDescription);
+
+
         return article;
     }
 
-    return {displayRecipes};
+    return {displayRecipes, displayIngredients};
 }
 
 function tagFactory(text) {

@@ -32,3 +32,166 @@ h1 {
     margin-top: 1%;
 
 }
+
+.card-recipes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#name_card {
+    display: flex;
+    flex-direction: column;
+    height: 364px;
+    width: 30%;
+    background: #E7E7E7;
+    margin-top: 2%;
+}
+
+#back_img {
+    background-color: #C7BEBE;
+    border-radius: 5px 5px 0px 0px;
+    height: 178px;
+    width: 100%;
+}
+
+#div_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#div_title > h2 {
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.time_icone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time_icone  > p {
+    margin: 0;
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.fa-clock{
+font-size: 20px;
+
+}
+
+.text_recipe {
+    display: flex;
+}
+
+.div_ingredients {
+    width: 50%;
+}
+
+.div_ingredients > p {
+    font-family: Lato;
+font-size: 12px;
+font-weight: 700;
+line-height: 14px;
+letter-spacing: 0em;
+text-align: left;
+
+
+
+}
+
+.div_description {
+    width: 50%;
+    font-family: Roboto;
+font-size: 12px;
+font-weight: 400;
+line-height: 12px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+
+.dropdown {
+    position: relative;
+    margin-top: 15px;
+    width: 170px;
+    height: 69px;
+}
+
+.dropdown::before {
+    content: "";
+    position: absolute;
+    top: 27px;
+    right: 20px;
+    z-index: 1000;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.dropdown.active::before {
+    top: 28px;
+    transform: rotate(-225deg);
+}
+
+.dropdown input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: #fff;
+    font-size: 1.2em;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+.dropdown .options {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+}
+
+.dropdown.active .options {
+    display: block;
+}
+
+.dropdown .options div {
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.dropdown .options div:hover {
+    background: #62baea;
+    color: #fff;
+}
+
+.dropdown_container {
+    display: flex;
+}
