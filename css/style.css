@@ -50,7 +50,7 @@ h1 {
 }
 
 #div_text {
-    margin: 20px 20px 0px 20px;
+    margin: 20px 20px 10px 20px;
     height: 50%;
 }
 
@@ -107,6 +107,7 @@ font-size: 20px;
 
 .text_recipe {
     display: flex;
+    height: 90%;
 }
 
 .div_ingredients {
@@ -128,12 +129,13 @@ text-align: left;
 .div_description {
     width: 50%;
     font-family: Roboto;
-font-size: 12px;
-font-weight: 400;
-line-height: 12px;
-letter-spacing: 0em;
-text-align: left;
-
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dropdown {
@@ -312,7 +314,7 @@ text-align: left;
     line-height: 22px;
 }
 
-.fa-regular {
+.tag > .fa-regular {
     color: white;
 }
 

@@ -65,7 +65,6 @@ dropdown3.onclick = function() {
         const divIngredient = document.createElement("div");
         divIngredient.setAttribute("class", "option_ingredient");
         divIngredient.setAttribute("id", element);
-        divIngredient.setAttribute("onClick", "createTag()");
         divIngredient.textContent = element;
         optionIngredients.appendChild(divIngredient);
     });
