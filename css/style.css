@@ -28,8 +28,8 @@ h1 {
 .fa-magnifying-glass {
     position: absolute;
     font-size: 32px;
-    margin-left: -2%;
-    margin-top: 1%;
+    margin-left: 81%;
+    margin-top: -3%;
 
 }
 
@@ -49,10 +49,21 @@ h1 {
     margin-top: 2%;
 }
 
+#div_text {
+    margin: 20px 20px 0px 20px;
+    height: 50%;
+}
+
+.p_description {
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #back_img {
     background-color: #C7BEBE;
     border-radius: 5px 5px 0px 0px;
-    height: 178px;
+    height: 50%;
     width: 100%;
 }
 
@@ -69,12 +80,14 @@ h1 {
     line-height: 22px;
     letter-spacing: 0em;
     text-align: left;
+    margin: 0px 20px 0px 0px;
 }
 
 .time_icone {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 17%;
 }
 
 .time_icone  > p {
@@ -128,6 +141,7 @@ text-align: left;
     margin-top: 15px;
     width: 170px;
     height: 69px;
+    margin-right: 4%;
 }
 
 .dropdown::before {
@@ -239,4 +253,88 @@ text-align: left;
 
 .option_ustensils {
     background-color: #ED6454;
+}
+
+.dropdown.active > #options_ingredients {
+    display: flex;
+    height: 397px;
+    width: 667px;
+    border-radius: 5px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #68D9A4;
+    margin-top: 14%;
+}
+
+.dropdown.active > #option_ingredient {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.dropdown.active > #options_appareils {
+    display: flex;
+    height: 397px;
+    width: 667px;
+    border-radius: 5px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #68D9A4;
+    margin-top: 14%;
+}
+
+.dropdown.active > #option_ingredient {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.dropdown.active > #options_ustensile {
+    display: flex;
+    height: 397px;
+    width: 667px;
+    border-radius: 5px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #ED6454;
+    margin-top: 14%;
+}
+
+.dropdown.active > #options_ustensile {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.fa-regular {
+    color: white;
+}
+
+.fa-utensils  {
+    color: #D04F4F;
+    font-size: 40px;
+}
+
+.tag {
+    display: flex;
+    height: 37px;
+    border-radius: 5px;
+    align-items: center;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+.tag-div {
+    display: flex;
 }

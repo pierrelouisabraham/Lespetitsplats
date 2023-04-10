@@ -1,10 +1,7 @@
 
 
-function mediaFactory(data){
+function recipeFactory(data){
     const  {id, name, ingredients, time, description} = data;
-    
-
-
     
     function displayRecipes() {
         const article = document.createElement('article');
@@ -67,8 +64,13 @@ function mediaFactory(data){
 
         const divDescription = document.createElement('div');
         divDescription.setAttribute('class', 'div_description');
-        divDescription.textContent = description;
+        
         divRecipe.appendChild(divDescription);
+
+        const pdescription = document.createElement('p');
+        pdescription.setAttribute('class', 'p_description');
+        pdescription.textContent = description;
+        divDescription.appendChild(pdescription);
 
 
         return article;
