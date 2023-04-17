@@ -13,17 +13,65 @@ const optionUstensiles = document.querySelector("#options_ustensile");
 const optionAppareil = document.querySelector("#options_appareils");
 
 const divTag = document.querySelector(".tag-div");
+var activeIngTags = []
+var activeUstTags = []
+var activeAppTags = []
 
 
-function displayData(recipes) {
+function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
+
+
+
+    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0) {
+        console.log("ONe is full")
+        recipesToDisplay = recipes.filter((recipe) => {
+
+            let ingredientsFound = [];
+            let ustensilsFound = [];
+            let appareilFound = []
     
-    recipes.forEach((recipe) => {
+            recipe.ingredients.forEach((ingredient) => {
+                if (activeIngTags.includes(ingredient.ingredient)) {
+                    ingredientsFound.push(ingredient.ingredient)
+                }
+            })
+            
+            recipe.ustensils.forEach((ustensil) => {
+                if (activeUstTags.includes(ustensil)) {
+                    ustensilsFound.push(ustensil)
+                }
+            })
+            
+            if (activeAppTags.includes(recipe.appliance)) {
+                appareilFound.push(appareilFound)
+            }
+    
+            return (
+                activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient)) &&
+                activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil)) &&
+                appareilFound) 
+        });
+        
+        console.log(recipesToDisplay)
+
+    }
+    else {
+        console.log("ALL EMPTY")
+        recipesToDisplay = recipes;
+    }
+
+    // On affiche
+    recipesToDisplay.forEach((recipe) => {
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.displayRecipes();
         recipesSection.appendChild(recipeCardDOM);
        
     });
+    
+
+
+
 };
 
 function init() {
@@ -35,7 +83,7 @@ function init() {
     displayDropdownIngredients();
     displayDropdownAppareils();
     displayDropdownUstensils();
-    displayData(recipes);
+    displayData();
     
 }
 
@@ -96,24 +144,40 @@ function displayDropdownAppareils() {
     })
 }
 
+
 const ingredients = document.querySelectorAll('.option_ingredient');
 ingredients.forEach(el => el.addEventListener('click', event => {
-    createTag(event.target.getAttribute("id"), '#3282F7');
+    if (!activeIngTags.includes(event.target.getAttribute("id"))) {
+        createTag(event.target.getAttribute("id"), '#3282F7', 'ingredient');
+        activeIngTags.push(event.target.getAttribute("id"))
+        displayData()
+    }
   }));
 
   const appareils = document.querySelectorAll('.option_appareils');
   appareils.forEach(el => el.addEventListener('click', event => {
-    createTag(event.target.getAttribute("id"), '#68D9A4');
+    if (!activeAppTags.includes(event.target.getAttribute("id"))) {
+        createTag(event.target.getAttribute("id"), '#68D9A4', 'appareil');
+        activeAppTags.push(event.target.getAttribute("id"))
+        displayData()
+    }
+    
   }));
 
   const ustensils = document.querySelectorAll('.option_ustensils');
   ustensils.forEach(el => el.addEventListener('click', event => {
-    createTag(event.target.getAttribute("id"), '#ED6454');
+    if (!activeUstTags.includes(event.target.getAttribute("id"))) {
+        createTag(event.target.getAttribute("id"), '#ED6454', 'ustensil');
+        activeUstTags.push(event.target.getAttribute("id"))
+        displayData()
+    }
+    
   }));
 
-function createTag(texte, color) {
+function createTag(texte, color, category) {
     const divTagAdd = document.createElement("div");
     divTagAdd.setAttribute("class", "tag");
+    divTagAdd.setAttribute("category", category);
     divTagAdd.setAttribute("id", texte);
     divTagAdd.style.backgroundColor = color;
     divTagAdd.textContent = texte;
@@ -126,14 +190,29 @@ function createTag(texte, color) {
     iconExit.setAttribute('class', 'fa-regular fa-circle-xmark');
     iconExit.setAttribute('onClick', `suppressElement('${texte}')`);
     spanExit.appendChild(iconExit);
-    console.log(texte, color)
 }
 
+
 inputSearch.addEventListener("focus", () => {
-    console.log("test")
 })
 
 function suppressElement(id) {
-    document.getElementById(id).remove();
+    elt = document.getElementById(id)
+    elt_category = elt.getAttribute("category")
+
+    if (elt_category == "ingedient") {
+        activeIngTags.splice(activeIngTags.indexOf(id), 1)
+    }
+
+    if (elt_category == "ustensil") {
+        activeUstTags.splice(activeUstTags.indexOf(id), 1)
+    }
+
+    if (elt_category == "appareil") {
+        activeAppTags.splice(activeAppTags.indexOf(id), 1)
+    }
+
+    displayData();
+    elt.remove();
 }
 
