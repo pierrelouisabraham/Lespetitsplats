@@ -29,7 +29,7 @@ function displayData() {
 
             let ingredientsFound = [];
             let ustensilsFound = [];
-            let appareilFound = []
+            let appareilFound = [];
             console.log(activeAppTags)
             console.log(activeIngTags)
             console.log(activeUstTags)
@@ -63,6 +63,8 @@ function displayData() {
         recipesToDisplay = recipes;
     }
 
+    // reset affichage ou display none les non concernés
+    recipesSection.innerHTML = '';
     // On affiche
     recipesToDisplay.forEach((recipe) => {
         const recipeModel = recipeFactory(recipe);
@@ -89,7 +91,6 @@ function init() {
     
 }
 
-/* data-id rechercher sur les id et faire un display none*/
 
 init();
 
