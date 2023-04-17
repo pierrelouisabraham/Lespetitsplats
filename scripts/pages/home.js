@@ -44,6 +44,7 @@ function init() {
 init();
 
 // utiliser les event focus et blur pour actif ou non
+// à factoriser
 dropdown1.onclick = function() {
     dropdown1.classList.toggle("active");
 }
@@ -57,6 +58,11 @@ dropdown2.onclick = function() {
 dropdown3.onclick = function() {
     dropdown3.classList.toggle("active")
 }
+
+
+//input doit passer en inline-block avec une largeur de son parent qui doit s'adapter au contenue offsetWidth
+
+//mettre input dans la div option mettre en block ou inline-block
 
 
 // à factoriser
@@ -122,8 +128,6 @@ function createTag(texte, color) {
     spanExit.appendChild(iconExit);
     console.log(texte, color)
 }
-
-
 
 inputSearch.addEventListener("focus", () => {
     console.log("test")

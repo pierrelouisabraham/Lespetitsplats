@@ -58,6 +58,12 @@ h1 {
 
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
 }
 
 #back_img {
@@ -121,7 +127,7 @@ font-weight: 700;
 line-height: 14px;
 letter-spacing: 0em;
 text-align: left;
-
+margin: 0;
 
 
 }
@@ -335,8 +341,14 @@ text-align: left;
     line-height: 17px;
     color: #FFFFFF;
     margin-left: 10px;
+    padding-left: 1%;
 }
 
 .tag-div {
     display: flex;
+}
+
+.exit {
+    padding-left: 10px;
+    padding-right: 10px;
 }
