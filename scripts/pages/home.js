@@ -30,7 +30,9 @@ function displayData() {
             let ingredientsFound = [];
             let ustensilsFound = [];
             let appareilFound = []
-    
+            console.log(activeAppTags)
+            console.log(activeIngTags)
+            console.log(activeUstTags)
             recipe.ingredients.forEach((ingredient) => {
                 if (activeIngTags.includes(ingredient.ingredient)) {
                     ingredientsFound.push(ingredient.ingredient)
@@ -200,7 +202,7 @@ function suppressElement(id) {
     elt = document.getElementById(id)
     elt_category = elt.getAttribute("category")
 
-    if (elt_category == "ingedient") {
+    if (elt_category == "ingredient") {
         activeIngTags.splice(activeIngTags.indexOf(id), 1)
     }
 
