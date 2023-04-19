@@ -24,42 +24,14 @@ function displayData() {
 
 
 
-    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value != "") {
+    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
         console.log("ONe is full")
-        console.log(recipesToDisplay)
-        recipesToDisplay = recipes.filter((recipe) => {
+        console.log(recipesToDisplay)    
+    if(inputSearch.value.length > 2)
+        filterByTag(recipesToDisplay)
+    else
+        filterByTag(recipes)
 
-            let ingredientsFound = [];
-            let ustensilsFound = [];
-            let appareilFound = [];
-            console.log(activeAppTags)
-            console.log(activeIngTags)
-            console.log(activeUstTags)
-            console.log(inputSearch.value)
-            recipe.ingredients.forEach((ingredient) => {
-                if (activeIngTags.includes(ingredient.ingredient.toLowerCase())) {
-                    ingredientsFound.push(ingredient.ingredient.toLowerCase())
-                }
-            })
-            
-            recipe.ustensils.forEach((ustensil) => {
-                if (activeUstTags.includes(ustensil.toLowerCase())) {
-                    ustensilsFound.push(ustensil.toLowerCase())
-                }
-            })
-            
-            if (activeAppTags.includes(recipe.appliance.toLowerCase())) {
-                appareilFound.push(recipe.appliance.toLowerCase())
-            }
-            
-                return (
-                    activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient.toLowerCase())) &&
-                    activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil.toLowerCase())) &&
-                    activeAppTags.every((appareil) => appareil.includes(recipe.appliance.toLowerCase())))
-               
-           
-            
-        });
     }
     else {
         console.log("ALL EMPTY")
@@ -69,6 +41,7 @@ function displayData() {
     // reset affichage ou display none les non concernés
     recipesSection.innerHTML = '';
     // On affiche
+    console.log(recipesToDisplay.length + "MET du texte idiot")
     recipesToDisplay.forEach((recipe) => {
         console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
@@ -223,14 +196,16 @@ function createTag(texte, color, category) {
 
 
 inputSearch.addEventListener("blur", (evt) => {
-    texteInput = evt.target.value;
+   /*  texteInput = evt.target.value; */
+    texteInput = new RegExp(evt.target.value, "i")
+    console.log(texteInput + "TEST")
     recipesToDisplay = recipes.filter((recipe) => {
-        if(recipe.name.includes(texteInput))
+        if(texteInput.test(recipe.name))
             return recipe;
-        if(recipe.description.includes(texteInput))
+        if(texteInput.test(recipe.description))
             return recipe;
         recipe.ingredients.forEach((ingredient) => {
-            if (ingredient.ingredient.match(texteInput))
+            if (texteInput.test(ingredient.ingredient))
                 return recipe;
             })
     })
