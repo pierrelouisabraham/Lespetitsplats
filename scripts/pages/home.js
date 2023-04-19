@@ -17,14 +17,16 @@ var activeIngTags = []
 var activeUstTags = []
 var activeAppTags = []
 
+var recipesToDisplay = [];
 
 function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
 
 
 
-    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0) {
+    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value != "") {
         console.log("ONe is full")
+        console.log(recipesToDisplay)
         recipesToDisplay = recipes.filter((recipe) => {
 
             let ingredientsFound = [];
@@ -33,6 +35,7 @@ function displayData() {
             console.log(activeAppTags)
             console.log(activeIngTags)
             console.log(activeUstTags)
+            console.log(inputSearch.value)
             recipe.ingredients.forEach((ingredient) => {
                 if (activeIngTags.includes(ingredient.ingredient)) {
                     ingredientsFound.push(ingredient.ingredient)
@@ -46,17 +49,17 @@ function displayData() {
             })
             
             if (activeAppTags.includes(recipe.appliance)) {
-                appareilFound.push(appareilFound)
+                appareilFound.push(recipe.appliance)
             }
-    
-            return (
-                activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient)) &&
-                activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil)) &&
-                appareilFound) 
+            
+                return (
+                    activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient)) &&
+                    activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil)) &&
+                    activeAppTags.every((appareil) => appareil.includes(recipe.appliance)))
+               
+           
+            
         });
-        
-        console.log(recipesToDisplay)
-
     }
     else {
         console.log("ALL EMPTY")
@@ -67,6 +70,7 @@ function displayData() {
     recipesSection.innerHTML = '';
     // On affiche
     recipesToDisplay.forEach((recipe) => {
+        console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.displayRecipes();
         recipesSection.appendChild(recipeCardDOM);
@@ -78,8 +82,8 @@ function displayData() {
 
 };
 
-function init() {
-    recipes.forEach((recipe) => {
+function rebuildwindow(data) {
+    data.forEach((recipe) => {
         getIngredients(recipe);
         getAppliance(recipe);
         getUstensils(recipe);
@@ -88,6 +92,19 @@ function init() {
     displayDropdownAppareils();
     displayDropdownUstensils();
     displayData();
+}
+
+function init() {
+    rebuildwindow(recipes)
+    /* recipes.forEach((recipe) => {
+        getIngredients(recipe);
+        getAppliance(recipe);
+        getUstensils(recipe);
+    });
+    displayDropdownIngredients();
+    displayDropdownAppareils();
+    displayDropdownUstensils();
+    displayData(); */
     
 }
 
@@ -154,6 +171,9 @@ ingredients.forEach(el => el.addEventListener('click', event => {
         createTag(event.target.getAttribute("id"), '#3282F7', 'ingredient');
         activeIngTags.push(event.target.getAttribute("id"))
         displayData()
+        displayDropdownIngredients();
+        displayDropdownAppareils();
+        displayDropdownUstensils();
     }
   }));
 
@@ -163,6 +183,9 @@ ingredients.forEach(el => el.addEventListener('click', event => {
         createTag(event.target.getAttribute("id"), '#68D9A4', 'appareil');
         activeAppTags.push(event.target.getAttribute("id"))
         displayData()
+        displayDropdownIngredients();
+        displayDropdownAppareils();
+        displayDropdownUstensils();
     }
     
   }));
@@ -173,6 +196,9 @@ ingredients.forEach(el => el.addEventListener('click', event => {
         createTag(event.target.getAttribute("id"), '#ED6454', 'ustensil');
         activeUstTags.push(event.target.getAttribute("id"))
         displayData()
+        displayDropdownIngredients();
+        displayDropdownAppareils();
+        displayDropdownUstensils();
     }
     
   }));
@@ -196,7 +222,20 @@ function createTag(texte, color, category) {
 }
 
 
-inputSearch.addEventListener("focus", () => {
+inputSearch.addEventListener("blur", (evt) => {
+    texteInput = evt.target.value;
+    recipesToDisplay = recipes.filter((recipe) => {
+        if(recipe.name.includes(texteInput))
+            return recipe;
+        if(recipe.description.includes(texteInput))
+            return recipe;
+        recipe.ingredients.forEach((ingredient) => {
+            if (ingredient.ingredient.match(texteInput))
+                return recipe;
+            })
+    })
+    console.log(recipesToDisplay)
+    displayData()
 })
 
 function suppressElement(id) {
@@ -215,7 +254,11 @@ function suppressElement(id) {
         activeAppTags.splice(activeAppTags.indexOf(id), 1)
     }
 
-    displayData();
+    
     elt.remove();
+    displayData();
+    displayDropdownIngredients();
+    displayDropdownAppareils();
+    displayDropdownUstensils();
 }
 
