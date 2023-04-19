@@ -313,6 +313,7 @@ margin: 0;
     flex-wrap: wrap;
     background-color: #ED6454;
     margin-top: 14%;
+    overflow: scroll;
 }
 
 .dropdown.active > #options_ustensile {

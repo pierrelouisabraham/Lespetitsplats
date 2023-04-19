@@ -1,20 +1,19 @@
 function getIngredients(data) {
     const  {ingredients} = data;
     ingredients.forEach(element => {
-        const {ingredient} = element;
-        ingredientSet.add(ingredient)
+        ingredientSet.add(element.ingredient.toLowerCase())
     });
 }
 
 function getAppliance(data) {
     const  {appliance} = data;
-    appareilSet.add(appliance);
+    appareilSet.add(appliance.toLowerCase());
 }
 
 function getUstensils(data) {
     const  {ustensils} = data;
     ustensils.forEach(element => {
-    ustensileSet.add(element);
+    ustensileSet.add(element.toLowerCase());
     });
 }
 

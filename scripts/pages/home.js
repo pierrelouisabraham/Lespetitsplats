@@ -37,25 +37,25 @@ function displayData() {
             console.log(activeUstTags)
             console.log(inputSearch.value)
             recipe.ingredients.forEach((ingredient) => {
-                if (activeIngTags.includes(ingredient.ingredient)) {
-                    ingredientsFound.push(ingredient.ingredient)
+                if (activeIngTags.includes(ingredient.ingredient.toLowerCase())) {
+                    ingredientsFound.push(ingredient.ingredient.toLowerCase())
                 }
             })
             
             recipe.ustensils.forEach((ustensil) => {
-                if (activeUstTags.includes(ustensil)) {
-                    ustensilsFound.push(ustensil)
+                if (activeUstTags.includes(ustensil.toLowerCase())) {
+                    ustensilsFound.push(ustensil.toLowerCase())
                 }
             })
             
-            if (activeAppTags.includes(recipe.appliance)) {
-                appareilFound.push(recipe.appliance)
+            if (activeAppTags.includes(recipe.appliance.toLowerCase())) {
+                appareilFound.push(recipe.appliance.toLowerCase())
             }
             
                 return (
-                    activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient)) &&
-                    activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil)) &&
-                    activeAppTags.every((appareil) => appareil.includes(recipe.appliance)))
+                    activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient.toLowerCase())) &&
+                    activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil.toLowerCase())) &&
+                    activeAppTags.every((appareil) => appareil.includes(recipe.appliance.toLowerCase())))
                
            
             
