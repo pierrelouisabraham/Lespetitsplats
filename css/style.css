@@ -237,6 +237,8 @@ margin: 0;
 .dropdown.active::before {
     top: 28px;
     transform: rotate(-225deg);
+    max-width: 667px;
+    width: max-content;
 }
 
 #dropdown_ingredients input {
@@ -271,7 +273,7 @@ margin: 0;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: #3282F7;
-    margin-top: 14%;
+    margin-top: 3%;
     overflow: scroll;
 }
 
@@ -292,16 +294,8 @@ margin: 0;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: #68D9A4;
-    margin-top: 14%;
+    margin-top: 3%;
     overflow: scroll;
-}
-
-.dropdown.active > #option_ingredient {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
 }
 
 .dropdown.active > #options_ustensile {
@@ -312,16 +306,8 @@ margin: 0;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: #ED6454;
-    margin-top: 14%;
+    margin-top: 3%;
     overflow: scroll;
-}
-
-.dropdown.active > #options_ustensile {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
 }
 
 .tag > .fa-regular {

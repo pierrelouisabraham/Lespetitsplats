@@ -17,16 +17,27 @@ function getUstensils(data) {
     });
 }
 
+function filterBySearchWord(inputEntry) {
+    texteInput = new RegExp(inputEntry, "i")
+    console.log(inputEntry + "TEST")
+    recipesToDisplay = recipes.filter((recipe) => {
+        if(texteInput.test(recipe.name))
+            return recipe;
+        if(texteInput.test(recipe.description))
+            return recipe;
+        recipe.ingredients.forEach((ingredient) => {
+            if (texteInput.test(ingredient.ingredient))
+                return recipe;
+            })
+    }) 
+}
+
+//Chaque fois que l'on trouve un tag dans la recette on recompose le tableau à afficher
 function filterByTag(data) {
     recipesToDisplay = data.filter((recipe) => {
-        console.log(recipesToDisplay.length + "begin loop")
         let ingredientsFound = [];
         let ustensilsFound = [];
         let appareilFound = [];
-        console.log(activeAppTags)
-        console.log(activeIngTags)
-        console.log(activeUstTags)
-        console.log(inputSearch.value)
         recipe.ingredients.forEach((ingredient) => {
             if (activeIngTags.includes(ingredient.ingredient.toLowerCase())) {
                 ingredientsFound.push(ingredient.ingredient.toLowerCase())
@@ -47,13 +58,30 @@ function filterByTag(data) {
                 activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient.toLowerCase())) &&
                 activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil.toLowerCase())) &&
                 activeAppTags.every((appareil) => appareil.includes(recipe.appliance.toLowerCase())))
-           
-       
-        
     });
 
     return recipesToDisplay;
 }
 
+/* function filterTagByword(value, option) {
+    if (option == "ingredient") {
+        let ingredientToDisplay = [];
+        ingredientSet.forEach((ingredient)=> {
+        console.log(typeof ingredient)
+        if (ingredient. (value))
+            ingredientToDisplay.add(ingredient);
+      })
+      console.log(ingredientToDisplay)
 
-// faire une boucle qui fait tout
+    }
+
+    if (option == "ustensil") {
+
+    }
+    if (option == "appareil"){
+
+    }
+    
+    optionAppareil.innerHTML = "";
+    optionUstensiles.innerHTML = "";
+} */
