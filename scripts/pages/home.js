@@ -112,6 +112,7 @@ dropdown2.onclick = function() {
     dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
     dropdown1.classList.remove("active");
     dropdown3.classList.remove("active");
+
 }
 
 
@@ -123,11 +124,6 @@ dropdown3.onclick = function() {
     dropdown1.classList.remove("active");
     dropdown2.classList.remove("active");
 }
-
-
-//input doit passer en inline-block avec une largeur de son parent qui doit s'adapter au contenue offsetWidth
-
-//mettre input dans la div option mettre en block ou inline-block
 
 
 // à factoriser
@@ -202,33 +198,46 @@ function createTag(texte, color, category) {
     spanExit.appendChild(iconExit);
 }
 
-
-inputSearch.addEventListener("blur", (evt) => {
-    filterBySearchWord(evt.value)
-    displayData()
-})
-
-inputSearch.addEventListener("change", (evt) => {
-    filterBySearchWord(evt.value)
-    displayData()
-})
-
 inputSearch.addEventListener("input", (evt) => {
     filterBySearchWord(evt.value)
     displayData()
 })
 
 inputIgredient.addEventListener("input", (evt) => {
-    filterTagByword(evt.value, "ingredient");
+    filterTagByword(inputIgredient.value, "ingredient");
 })
 
 inputUstensile.addEventListener("input", (evt) => {
-    filterTagByword(evt.value, "ustensil");
+    filterTagByword(inputUstensile.value, "ustensil");
 })
 
 inputAppareils.addEventListener("input", (evt) => {
-    filterTagByword(evt.value, "appareil");
+    filterTagByword(inputAppareils.value, "appareil");
+
 })
+
+inputIgredient.addEventListener("blur", (evt) => {
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown2.classList.remove("active")
+    dropdown3.classList.remove("active")
+})
+
+inputUstensile.addEventListener("blur", (evt) => {
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown1.classList.remove("active");
+    dropdown3.classList.remove("active");
+})
+
+inputAppareils.addEventListener("blur", (evt) => {
+    
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown1.classList.remove("active");
+    dropdown2.classList.remove("active");
+})
+
 
 function suppressElement(id) {
     elt = document.getElementById(id)

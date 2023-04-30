@@ -63,13 +63,13 @@ function filterByTag(data) {
     return recipesToDisplay;
 }
 
-/* function filterTagByword(value, option) {
+function filterTagByword(value, option) {
     if (option == "ingredient") {
         let ingredientToDisplay = [];
         ingredientSet.forEach((ingredient)=> {
         console.log(typeof ingredient)
-        if (ingredient. (value))
-            ingredientToDisplay.add(ingredient);
+        if (ingredient.includes(value))
+            ingredientToDisplay.push(ingredient);
       })
       console.log(ingredientToDisplay)
 
@@ -84,4 +84,4 @@ function filterByTag(data) {
     
     optionAppareil.innerHTML = "";
     optionUstensiles.innerHTML = "";
-} */
+}
