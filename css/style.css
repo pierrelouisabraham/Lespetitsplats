@@ -169,7 +169,7 @@ margin: 0;
 .dropdown::before {
     content: "";
     position: absolute;
-    top: 27px;
+    top: 37px;
     right: 20px;
     z-index: 1000;
     width: 8px;
@@ -183,7 +183,8 @@ margin: 0;
 }
 
 .dropdown.active::before {
-    top: 28px;
+    top: 37px;
+    right: 56px;
     transform: rotate(-225deg);
 }
 
