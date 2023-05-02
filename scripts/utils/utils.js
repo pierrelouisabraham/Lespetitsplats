@@ -65,23 +65,58 @@ function filterByTag(data) {
 
 function filterTagByword(value, option) {
     if (option == "ingredient") {
-        let ingredientToDisplay = [];
+        var ingredientToDisplay = [];
         ingredientSet.forEach((ingredient)=> {
-        console.log(typeof ingredient)
         if (ingredient.includes(value))
             ingredientToDisplay.push(ingredient);
+        optionIngredients.innerHTML = "";
+        displayDropdown(option, ingredientToDisplay)
       })
-      console.log(ingredientToDisplay)
 
     }
 
     if (option == "ustensil") {
+        var ustensilToDisplay = [];
+        ustensileSet.forEach((ustensil)=> {
+        if (ustensil.includes(value))
+            ustensilToDisplay.push(ustensil);
 
+        optionUstensiles.innerHTML = "";
+        displayDropdown(option, ustensilToDisplay)
+      })
     }
     if (option == "appareil"){
-
+        var apparelToDisplay = [];
+        appareilSet.forEach((appareil)=> {
+        if (appareil.includes(value))
+            apparelToDisplay.push(appareil);
+        optionAppareil.innerHTML = "";
+        displayDropdown(option, ustensilToDisplay)
+      })
     }
     
-    optionAppareil.innerHTML = "";
-    optionUstensiles.innerHTML = "";
+    
+    
 }
+
+function displayDropdown(nature, arrayToDisplay) {
+    arrayToDisplay.forEach(element => {
+        const divDropdown = document.createElement("div");
+        divDropdown.setAttribute("id", element);
+        divDropdown.setAttribute("onclick", `onClickTag('${nature}','${element}')`);
+        divDropdown.textContent = element;
+        if (nature == 'ingredient') {
+            divDropdown.setAttribute("class", "option_ingredient");
+            optionIngredients.appendChild(divDropdown);
+        }
+        if (nature == 'ustensil') {
+            divDropdown.setAttribute("onclick", `onClickTag('${nature}','${element}')`);
+            optionUstensiles.appendChild(divDropdown);            
+        }
+        if(nature == 'appareil') {
+            divDropdown.setAttribute("onclick", `onClickTag('${nature}','${element}')`);
+            optionAppareil.appendChild(divDropdown);
+        }
+    });
+}
+

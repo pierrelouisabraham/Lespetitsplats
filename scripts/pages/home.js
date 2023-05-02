@@ -127,7 +127,7 @@ dropdown3.onclick = function() {
 
 
 // à factoriser
- function displayDropdownIngredients() {
+function displayDropdownIngredients() {
     ingredientSet.forEach(element => {
         const divIngredient = document.createElement("div");
         divIngredient.setAttribute("class", "option_ingredient");
@@ -196,6 +196,9 @@ function createTag(texte, color, category) {
     iconExit.setAttribute('class', 'fa-regular fa-circle-xmark');
     iconExit.setAttribute('onClick', `suppressElement('${texte}')`);
     spanExit.appendChild(iconExit);
+    inputIgredient.value = '';
+    inputAppareils.value = '';
+    inputUstensile.value = '';
 }
 
 inputSearch.addEventListener("input", (evt) => {
