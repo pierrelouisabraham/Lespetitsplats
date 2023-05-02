@@ -259,10 +259,11 @@ margin: 0;
 }
 
 .dropdown.active::before {
-    top: 28px;
+    
+    top: 40px;
+
     transform: rotate(-225deg);
     max-width: 667px;
-    width: max-content;
 }
 
 #dropdown_ingredients input {

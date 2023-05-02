@@ -1,6 +1,6 @@
-var ingredientSet  = new Set();
-var ustensileSet  = new Set();
-var appareilSet  = new Set();
+const ingredientSet  = new Set();
+const ustensileSet  = new Set();
+const appareilSet  = new Set();
 
 const inputSearch = document.querySelector(".input-search");
 
@@ -17,9 +17,9 @@ const inputUstensile = document.querySelector("#ustensile_search")
 const inputAppareils = document.querySelector("#appareils_search")
 
 const divTag = document.querySelector(".tag-div");
-var activeIngTags = []
-var activeUstTags = []
-var activeAppTags = []
+const activeIngTags = []
+const activeUstTags = []
+const activeAppTags = []
 
 var recipesToDisplay = [];
 
@@ -31,26 +31,24 @@ function displayData() {
 
 
     if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
-        console.log("ONe is full")
-        console.log(recipesToDisplay)    
-    if(inputSearch.value.length > 2) {
-        filterBySearchWord(inputSearch.value)
-        filterByTag(recipesToDisplay)
-    }
-    else
-        filterByTag(recipes)
+   
+        if(inputSearch.value.length > 2) {
+            filterBySearchWord(inputSearch.value)
+            filterByTag(recipesToDisplay)
+        }
+        else
+            filterByTag(recipes)
 
-    }
-    else {
-        console.log("ALL EMPTY")
-        recipesToDisplay = recipes;
-    }
+        }
+     else {
+         console.log("ALL EMPTY")
+         recipesToDisplay = recipes;
+     }
     recipesSection.innerHTML = '';
 
     ingredientSet.clear();
     appareilSet.clear();
     ustensileSet.clear();
-    console.log(recipesToDisplay.length + "MET du texte idiot")
     recipesToDisplay.forEach((recipe) => {
         console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
@@ -61,10 +59,6 @@ function displayData() {
         getUstensils(recipe);
        
     });
-
-    console.log(ingredientSet)
-    console.log(ustensileSet)
-    console.log(appareilSet)
     optionIngredients.innerHTML = "";
     optionAppareil.innerHTML = "";
     optionUstensiles.innerHTML = "";
@@ -226,15 +220,14 @@ inputIgredient.addEventListener("blur", (evt) => {
     dropdown3.classList.remove("active")
 })
 
-inputUstensile.addEventListener("blur", (evt) => {
+inputAppareils.addEventListener("blur", (evt) => {
     dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
     dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
     dropdown1.classList.remove("active");
     dropdown3.classList.remove("active");
 })
 
-inputAppareils.addEventListener("blur", (evt) => {
-    
+inputUstensile.addEventListener("blur", (evt) => {
     dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
     dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
     dropdown1.classList.remove("active");

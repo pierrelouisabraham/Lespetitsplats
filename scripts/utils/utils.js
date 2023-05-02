@@ -74,7 +74,6 @@ function filterTagByword(value, option) {
       })
 
     }
-
     if (option == "ustensil") {
         var ustensilToDisplay = [];
         ustensileSet.forEach((ustensil)=> {
@@ -91,7 +90,7 @@ function filterTagByword(value, option) {
         if (appareil.includes(value))
             apparelToDisplay.push(appareil);
         optionAppareil.innerHTML = "";
-        displayDropdown(option, ustensilToDisplay)
+        displayDropdown(option, apparelToDisplay)
       })
     }
     
@@ -110,13 +109,16 @@ function displayDropdown(nature, arrayToDisplay) {
             optionIngredients.appendChild(divDropdown);
         }
         if (nature == 'ustensil') {
-            divDropdown.setAttribute("onclick", `onClickTag('${nature}','${element}')`);
+            divDropdown.setAttribute("class", "option_ustensils");
             optionUstensiles.appendChild(divDropdown);            
         }
         if(nature == 'appareil') {
-            divDropdown.setAttribute("onclick", `onClickTag('${nature}','${element}')`);
+            divDropdown.setAttribute("class", "option_appareils");
             optionAppareil.appendChild(divDropdown);
         }
     });
 }
 
+/* onClickTag('ingredient','poivron rouge')
+onClickTag('appareil','blender')
+onClickTag('ustensil','moule') */
