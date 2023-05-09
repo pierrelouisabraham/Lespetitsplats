@@ -17,18 +17,31 @@ function getUstensils(data) {
     });
 }
 
-function filterBySearchWord(inputEntry) {
+function filterBySearchWord(inputEntry, recipesAll) {
     texteInput = new RegExp(inputEntry, "i")
-    recipesToDisplay = recipes.myFilter((recipe) => {
+    recipesSection.innerHTML = '';
+  
+    recipesToDisplay = recipesAll.myFilter((recipe) => {
         let toDisplay = false;
-        if(texteInput.test(recipe.name))
-            return recipe;
-        if(texteInput.test(recipe.description))
-            return recipe;
+        if(texteInput.test(recipe.name) || texteInput.test(recipe.description)) {
+            toDisplay = true
+        }
+            
         recipe.ingredients.myForeach((ingredient) => {
             if (texteInput.test(ingredient.ingredient))
-                return recipe;
+            toDisplay = true
+                
             })
+        if(toDisplay == true) {
+                const recipeModel = recipeFactory(recipe);
+                const recipeCardDOM = recipeModel.displayRecipes();
+                recipesSection.appendChild(recipeCardDOM);
+                getIngredients(recipe);
+                getAppliance(recipe);
+                getUstensils(recipe);
+               
+                return recipe;
+        }
     }) 
 }
 
