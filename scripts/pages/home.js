@@ -23,12 +23,8 @@ const activeAppTags = []
 
 var recipesToDisplay = [];
 
-var n = 0;
-
 function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
-
-
 
     if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
    
@@ -65,6 +61,7 @@ function displayData() {
     displayDropdownIngredients();
     displayDropdownAppareils();
     displayDropdownUstensils();
+    closeAllDropdown()
 };
 
 function rebuildwindow(data) {
@@ -162,11 +159,13 @@ function onClickTag(typeClass, id) {
         console.log(recipes)
         rebuildwindow(recipes)
     }
+    else
     if (typeClass == "ustensil" && !activeUstTags.includes(id)) {
         createTag(id, '#ED6454', typeClass);
         activeUstTags.push(id)
         rebuildwindow(recipes)
     }
+    else
     if (typeClass == "appareil" && !activeAppTags.includes(id)) {
         createTag(id, '#68D9A4', typeClass);
         activeAppTags.push(id)
@@ -193,11 +192,17 @@ function createTag(texte, color, category) {
     inputIgredient.value = '';
     inputAppareils.value = '';
     inputUstensile.value = '';
+    closeAllDropdown()
 }
 
 inputSearch.addEventListener("input", (evt) => {
     filterBySearchWord(evt.value)
+
     displayData()
+})
+
+inputSearch.addEventListener("focus", (evt) => {
+    closeAllDropdown()
 })
 
 inputIgredient.addEventListener("input", (evt) => {
@@ -213,21 +218,21 @@ inputAppareils.addEventListener("input", (evt) => {
 
 })
 
-inputIgredient.addEventListener("blur", (evt) => {
+inputIgredient.addEventListener("focus", (evt) => {
     dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
     dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
     dropdown2.classList.remove("active")
     dropdown3.classList.remove("active")
 })
 
-inputAppareils.addEventListener("blur", (evt) => {
+inputAppareils.addEventListener("focus", (evt) => {
     dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
     dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
     dropdown1.classList.remove("active");
     dropdown3.classList.remove("active");
 })
 
-inputUstensile.addEventListener("blur", (evt) => {
+inputUstensile.addEventListener("focus", (evt) => {
     dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
     dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
     dropdown1.classList.remove("active");
@@ -241,11 +246,11 @@ function suppressElement(id) {
 
     if (elt_category == "ingredient") {
         activeIngTags.splice(activeIngTags.indexOf(id), 1)
-    }
+    } else
 
     if (elt_category == "ustensil") {
         activeUstTags.splice(activeUstTags.indexOf(id), 1)
-    }
+    } else
 
     if (elt_category == "appareil") {
         activeAppTags.splice(activeAppTags.indexOf(id), 1)
@@ -256,3 +261,11 @@ function suppressElement(id) {
     rebuildwindow(recipes);
 }
 
+function closeAllDropdown() {
+    dropdown1.classList.remove("active");
+    dropdown2.classList.remove("active");
+    dropdown3.classList.remove("active");
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+}
