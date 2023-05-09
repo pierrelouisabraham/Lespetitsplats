@@ -34,10 +34,8 @@ function displayData() {
         }
         else
             filterByTag(recipes)
-
         }
      else {
-         console.log("ALL EMPTY")
          recipesToDisplay = recipes;
      }
     recipesSection.innerHTML = '';
@@ -46,7 +44,6 @@ function displayData() {
     appareilSet.clear();
     ustensileSet.clear();
     recipesToDisplay.forEach((recipe) => {
-        console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.displayRecipes();
         recipesSection.appendChild(recipeCardDOM);

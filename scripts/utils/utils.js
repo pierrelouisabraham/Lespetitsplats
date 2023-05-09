@@ -19,11 +19,8 @@ function getUstensils(data) {
 
 function filterBySearchWord(inputEntry) {
     texteInput = new RegExp(inputEntry, "i")
-    console.log(inputEntry + "TEST")
     recipesToDisplay = recipes.filter((recipe) => {
-        if(texteInput.test(recipe.name))
-            return recipe;
-        if(texteInput.test(recipe.description))
+        if(texteInput.test(recipe.name) || texteInput.test(recipe.description))
             return recipe;
         recipe.ingredients.forEach((ingredient) => {
             if (texteInput.test(ingredient.ingredient))
