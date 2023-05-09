@@ -19,7 +19,6 @@ function getUstensils(data) {
 
 function filterBySearchWord(inputEntry) {
     texteInput = new RegExp(inputEntry, "i")
-    console.log(inputEntry + "TEST")
     recipesToDisplay = recipes.filter((recipe) => {
         if(texteInput.test(recipe.name))
             return recipe;
@@ -59,7 +58,6 @@ function filterByTag(data) {
                 activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil.toLowerCase())) &&
                 activeAppTags.every((appareil) => appareil.includes(recipe.appliance.toLowerCase())))
     });
-    console.log(recipesToDisplay)
     return recipesToDisplay;
 }
 

@@ -23,6 +23,10 @@ const activeAppTags = []
 
 var recipesToDisplay = [];
 
+
+/**
+ * 
+ */
 function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
     console.log(recipesToDisplay)
@@ -37,7 +41,6 @@ function displayData() {
 
         }
      else {
-         console.log("ALL EMPTY")
          recipesToDisplay = recipes;
      }
     recipesSection.innerHTML = '';
@@ -46,7 +49,6 @@ function displayData() {
     appareilSet.clear();
     ustensileSet.clear();
     recipesToDisplay.myForeach((recipe) => {
-        console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.displayRecipes();
         recipesSection.appendChild(recipeCardDOM);
@@ -115,8 +117,6 @@ dropdown3.onclick = function() {
     dropdown2.classList.remove("active");
 }
 
-
-// à factoriser
 function displayDropdownIngredients() {
     ingredientSet.myForeach(element => {
         const divIngredient = document.createElement("div");
@@ -151,11 +151,9 @@ function displayDropdownAppareils() {
 }
 
 function onClickTag(typeClass, id) {
-    console.log(typeClass, id)
     if (typeClass == "ingredient" && !activeIngTags.includes(id)) {
         createTag(id, '#3282F7', typeClass);
         activeIngTags.push(id)
-        console.log(recipes)
         rebuildwindow(recipes)
     }
     else
