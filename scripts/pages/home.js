@@ -12,70 +12,60 @@ const optionIngredients = document.querySelector("#options_ingredients");
 const optionUstensiles = document.querySelector("#options_ustensile");
 const optionAppareil = document.querySelector("#options_appareils");
 
-const divTag = document.querySelector(".tag-div");
-var activeIngTags = []
-var activeUstTags = []
-var activeAppTags = []
+const inputIgredient = document.querySelector("#ingredient_search")
+const inputUstensile = document.querySelector("#ustensile_search")
+const inputAppareils = document.querySelector("#appareils_search")
 
+const divTag = document.querySelector(".tag-div");
+const activeIngTags = []
+const activeUstTags = []
+const activeAppTags = []
+
+var recipesToDisplay = [];
 
 function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
+    console.log(recipesToDisplay)
+    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
+   
+        if(inputSearch.value.length > 2) {
+            filterBySearchWord(inputSearch.value)
+            filterByTag(recipesToDisplay)
+        }
+        else
+            filterByTag(recipes)
 
+        }
+     else {
+         console.log("ALL EMPTY")
+         recipesToDisplay = recipes;
+     }
+    recipesSection.innerHTML = '';
 
-
-    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0) {
-        console.log("ONe is full")
-        recipesToDisplay = recipes.filter((recipe) => {
-
-            let ingredientsFound = [];
-            let ustensilsFound = [];
-            let appareilFound = []
-    
-            recipe.ingredients.forEach((ingredient) => {
-                if (activeIngTags.includes(ingredient.ingredient)) {
-                    ingredientsFound.push(ingredient.ingredient)
-                }
-            })
-            
-            recipe.ustensils.forEach((ustensil) => {
-                if (activeUstTags.includes(ustensil)) {
-                    ustensilsFound.push(ustensil)
-                }
-            })
-            
-            if (activeAppTags.includes(recipe.appliance)) {
-                appareilFound.push(appareilFound)
-            }
-    
-            return (
-                activeIngTags.every((ingredient) => ingredientsFound.includes(ingredient)) &&
-                activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil)) &&
-                appareilFound) 
-        });
-        
-        console.log(recipesToDisplay)
-
-    }
-    else {
-        console.log("ALL EMPTY")
-        recipesToDisplay = recipes;
-    }
-
-    // On affiche
-    recipesToDisplay.forEach((recipe) => {
+    ingredientSet.clear();
+    appareilSet.clear();
+    ustensileSet.clear();
+    recipesToDisplay.myForeach((recipe) => {
+        console.log(recipe + "2")
         const recipeModel = recipeFactory(recipe);
         const recipeCardDOM = recipeModel.displayRecipes();
         recipesSection.appendChild(recipeCardDOM);
+        getIngredients(recipe);
+        getAppliance(recipe);
+        getUstensils(recipe);
        
     });
-    
-
-
-
+    optionIngredients.innerHTML = "";
+    optionAppareil.innerHTML = "";
+    optionUstensiles.innerHTML = "";
+    displayDropdownIngredients();
+    displayDropdownAppareils();
+    displayDropdownUstensils();
+    closeAllDropdown()
 };
 
-function init() {
-    recipes.forEach((recipe) => {
+function rebuildwindow(data) {
+    data.myForeach((recipe) => {
         getIngredients(recipe);
         getAppliance(recipe);
         getUstensils(recipe);
@@ -83,96 +73,104 @@ function init() {
     displayDropdownIngredients();
     displayDropdownAppareils();
     displayDropdownUstensils();
-    displayData();
     
+    displayData();
 }
 
-/* data-id rechercher sur les id et faire un display none*/
+function init() {
+    rebuildwindow(recipes)
+}
+
 
 init();
 
-// utiliser les event focus et blur pour actif ou non
-// à factoriser
+
 dropdown1.onclick = function() {
     dropdown1.classList.toggle("active");
+    dropdown1.firstElementChild.setAttribute("placeholder", "recherche un ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown2.classList.remove("active")
+    dropdown3.classList.remove("active")
 }
 
 
 dropdown2.onclick = function() {
     dropdown2.classList.toggle("active")
+    dropdown2.firstElementChild.setAttribute("placeholder", "recherche un appareil")
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown1.classList.remove("active");
+    dropdown3.classList.remove("active");
+
 }
 
 
 dropdown3.onclick = function() {
     dropdown3.classList.toggle("active")
+    dropdown3.firstElementChild.setAttribute("placeholder", "recherche un ustensile")
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown1.classList.remove("active");
+    dropdown2.classList.remove("active");
 }
 
 
-//input doit passer en inline-block avec une largeur de son parent qui doit s'adapter au contenue offsetWidth
-
-//mettre input dans la div option mettre en block ou inline-block
-
-
 // à factoriser
- function displayDropdownIngredients() {
-    ingredientSet.forEach(element => {
+function displayDropdownIngredients() {
+    ingredientSet.myForeach(element => {
         const divIngredient = document.createElement("div");
         divIngredient.setAttribute("class", "option_ingredient");
         divIngredient.setAttribute("id", element);
+        divIngredient.setAttribute("onclick", `onClickTag('ingredient','${element}')`);
         divIngredient.textContent = element;
         optionIngredients.appendChild(divIngredient);
     });
 }
 
 function displayDropdownUstensils() {
-    ustensileSet.forEach(element => {
+    ustensileSet.myForeach(element => {
         const divUstensil = document.createElement("div");
         divUstensil.setAttribute("class", "option_ustensils");
         divUstensil.setAttribute("id", element);
+        divUstensil.setAttribute("onclick", `onClickTag('ustensil','${element}')`);
         divUstensil.textContent = element;
         optionUstensiles.appendChild(divUstensil);
     })
 }
 
 function displayDropdownAppareils() {
-    appareilSet.forEach(element => {
+    appareilSet.myForeach(element => {
         const divAppareil = document.createElement("div");
         divAppareil.setAttribute("class", "option_appareils");
         divAppareil.setAttribute("id", element);
+        divAppareil.setAttribute("onclick", `onClickTag('appareil','${element}')`);
         divAppareil.textContent = element;
         optionAppareil.appendChild(divAppareil);
     })
 }
 
-
-const ingredients = document.querySelectorAll('.option_ingredient');
-ingredients.forEach(el => el.addEventListener('click', event => {
-    if (!activeIngTags.includes(event.target.getAttribute("id"))) {
-        createTag(event.target.getAttribute("id"), '#3282F7', 'ingredient');
-        activeIngTags.push(event.target.getAttribute("id"))
-        displayData()
+function onClickTag(typeClass, id) {
+    console.log(typeClass, id)
+    if (typeClass == "ingredient" && !activeIngTags.includes(id)) {
+        createTag(id, '#3282F7', typeClass);
+        activeIngTags.push(id)
+        console.log(recipes)
+        rebuildwindow(recipes)
     }
-  }));
-
-  const appareils = document.querySelectorAll('.option_appareils');
-  appareils.forEach(el => el.addEventListener('click', event => {
-    if (!activeAppTags.includes(event.target.getAttribute("id"))) {
-        createTag(event.target.getAttribute("id"), '#68D9A4', 'appareil');
-        activeAppTags.push(event.target.getAttribute("id"))
-        displayData()
+    else
+    if (typeClass == "ustensil" && !activeUstTags.includes(id)) {
+        createTag(id, '#ED6454', typeClass);
+        activeUstTags.push(id)
+        rebuildwindow(recipes)
     }
-    
-  }));
-
-  const ustensils = document.querySelectorAll('.option_ustensils');
-  ustensils.forEach(el => el.addEventListener('click', event => {
-    if (!activeUstTags.includes(event.target.getAttribute("id"))) {
-        createTag(event.target.getAttribute("id"), '#ED6454', 'ustensil');
-        activeUstTags.push(event.target.getAttribute("id"))
-        displayData()
+    else
+    if (typeClass == "appareil" && !activeAppTags.includes(id)) {
+        createTag(id, '#68D9A4', typeClass);
+        activeAppTags.push(id)
+        rebuildwindow(recipes)
     }
-    
-  }));
+}
 
 function createTag(texte, color, category) {
     const divTagAdd = document.createElement("div");
@@ -190,29 +188,83 @@ function createTag(texte, color, category) {
     iconExit.setAttribute('class', 'fa-regular fa-circle-xmark');
     iconExit.setAttribute('onClick', `suppressElement('${texte}')`);
     spanExit.appendChild(iconExit);
+    inputIgredient.value = '';
+    inputAppareils.value = '';
+    inputUstensile.value = '';
+    closeAllDropdown()
 }
 
+inputSearch.addEventListener("input", (evt) => {
+    filterBySearchWord(evt.value)
 
-inputSearch.addEventListener("focus", () => {
+    displayData()
 })
+
+inputSearch.addEventListener("focus", (evt) => {
+    closeAllDropdown()
+})
+
+inputIgredient.addEventListener("input", (evt) => {
+    filterTagByword(inputIgredient.value, "ingredient");
+})
+
+inputUstensile.addEventListener("input", (evt) => {
+    filterTagByword(inputUstensile.value, "ustensil");
+})
+
+inputAppareils.addEventListener("input", (evt) => {
+    filterTagByword(inputAppareils.value, "appareil");
+
+})
+
+inputIgredient.addEventListener("focus", (evt) => {
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown2.classList.remove("active")
+    dropdown3.classList.remove("active")
+})
+
+inputAppareils.addEventListener("focus", (evt) => {
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown1.classList.remove("active");
+    dropdown3.classList.remove("active");
+})
+
+inputUstensile.addEventListener("focus", (evt) => {
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+    dropdown1.classList.remove("active");
+    dropdown2.classList.remove("active");
+})
+
 
 function suppressElement(id) {
     elt = document.getElementById(id)
     elt_category = elt.getAttribute("category")
 
-    if (elt_category == "ingedient") {
+    if (elt_category == "ingredient") {
         activeIngTags.splice(activeIngTags.indexOf(id), 1)
-    }
+    } else
 
     if (elt_category == "ustensil") {
         activeUstTags.splice(activeUstTags.indexOf(id), 1)
-    }
+    } else
 
     if (elt_category == "appareil") {
         activeAppTags.splice(activeAppTags.indexOf(id), 1)
     }
 
-    displayData();
+    
     elt.remove();
+    rebuildwindow(recipes);
 }
 
+function closeAllDropdown() {
+    dropdown1.classList.remove("active");
+    dropdown2.classList.remove("active");
+    dropdown3.classList.remove("active");
+    dropdown3.firstElementChild.setAttribute("placeholder", "ustensile")
+    dropdown1.firstElementChild.setAttribute("placeholder", "ingredient")
+    dropdown2.firstElementChild.setAttribute("placeholder", "appareil")
+}
