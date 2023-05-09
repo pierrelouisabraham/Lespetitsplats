@@ -122,7 +122,7 @@ Array.prototype.myFilter = function(callback){
     for (let i = 0; i < this.length; i++) {
       let isFound = callback(this[i], i, this)
       if(isFound){
-        result.push(this[i])
+        result.push(this[i]);
       }
     }
     return result

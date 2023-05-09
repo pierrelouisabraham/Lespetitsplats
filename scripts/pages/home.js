@@ -29,9 +29,7 @@ var recipesToDisplay = [];
  */
 function displayData() {
     const recipesSection = document.querySelector(".card-recipes");
-    console.log(recipesToDisplay)
     if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
-   
         if(inputSearch.value.length > 2) {
             filterBySearchWord(inputSearch.value)
             filterByTag(recipesToDisplay)
@@ -48,15 +46,20 @@ function displayData() {
     ingredientSet.clear();
     appareilSet.clear();
     ustensileSet.clear();
-    recipesToDisplay.myForeach((recipe) => {
-        const recipeModel = recipeFactory(recipe);
-        const recipeCardDOM = recipeModel.displayRecipes();
-        recipesSection.appendChild(recipeCardDOM);
-        getIngredients(recipe);
-        getAppliance(recipe);
-        getUstensils(recipe);
-       
-    });
+    if( recipesToDisplay.length > 0) {
+        recipesToDisplay.myForeach((recipe) => {
+            const recipeModel = recipeFactory(recipe);
+            const recipeCardDOM = recipeModel.displayRecipes();
+            recipesSection.appendChild(recipeCardDOM);
+            getIngredients(recipe);
+            getAppliance(recipe);
+            getUstensils(recipe);
+        });
+    }
+    else {
+        
+        recipesSection
+    }
     optionIngredients.innerHTML = "";
     optionAppareil.innerHTML = "";
     optionUstensiles.innerHTML = "";
