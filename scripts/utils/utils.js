@@ -19,7 +19,8 @@ function getUstensils(data) {
 
 function filterBySearchWord(inputEntry) {
     texteInput = new RegExp(inputEntry, "i")
-    recipesToDisplay = recipes.filter((recipe) => {
+    recipesToDisplay = recipes.myFilter((recipe) => {
+        let toDisplay = false;
         if(texteInput.test(recipe.name))
             return recipe;
         if(texteInput.test(recipe.description))
@@ -128,8 +129,27 @@ Array.prototype.myFilter = function(callback){
     return result
   }
 
-  Array.prototype.myForeach = function(callback){
+
+
+Array.prototype.myForeach = function(callback){
     for (let i = 0; i < this.length; i++) {
       callback(this[i], i, this)
     }
+}
+
+  Set.prototype.myForeach = function(callback){
+    for (let value of this.values()) {
+      callback(value)
+    }
+  }
+
+  Set.prototype.myFilter = function(callback){
+    var result = [];
+    for (let value of this.values()) {
+      let isFound = callback(value)
+      if(isFound){
+        result.push(value);
+      }
+    }
+    return result
   }
