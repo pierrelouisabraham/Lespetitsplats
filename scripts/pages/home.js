@@ -26,7 +26,7 @@ var recipesToDisplay = [];
 const recipesSection = document.querySelector(".card-recipes");
 
 /**
- * 
+ * Display data clear et affiche les données filtrées
  */
 function displayData() {
 
@@ -255,8 +255,6 @@ function suppressElement(id) {
     if (elt_category == "appareil") {
         activeAppTags.splice(activeAppTags.indexOf(id), 1)
     }
-
-    
     elt.remove();
     rebuildwindow(recipes);
 
