@@ -58,6 +58,7 @@ function displayData() {
     }
     else {
         const pMessage = document.createElement('p');
+        pMessage.setAttribute("id", "find_error")
         pMessage.textContent = "Aucune recette ne correspond à votre critère…"
         recipesSection.appendChild(pMessage)
     }
