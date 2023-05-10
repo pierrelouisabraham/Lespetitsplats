@@ -23,35 +23,45 @@ const activeAppTags = []
 
 var recipesToDisplay = [];
 
-function displayData() {
-    const recipesSection = document.querySelector(".card-recipes");
+const recipesSection = document.querySelector(".card-recipes");
 
-    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0 || inputSearch.value.length > 2) {
-   
-        if(inputSearch.value.length > 2) {
-            filterBySearchWord(inputSearch.value)
-            filterByTag(recipesToDisplay)
-        }
-        else
-            filterByTag(recipes)
-        }
-     else {
+/**
+ * Display data clear et affiche les données filtrées
+ */
+function displayData() {
+
+    if (activeAppTags.length > 0 || activeUstTags.length > 0 || activeIngTags.length > 0) {
+        filterByTag(recipes)
+    }
+    else {
          recipesToDisplay = recipes;
-     }
+    }
+    
+    if(inputSearch.value.length > 2) {
+        filterBySearchWord(inputSearch.value, recipesToDisplay)
+    }
+
     recipesSection.innerHTML = '';
 
     ingredientSet.clear();
     appareilSet.clear();
     ustensileSet.clear();
-    recipesToDisplay.forEach((recipe) => {
-        const recipeModel = recipeFactory(recipe);
-        const recipeCardDOM = recipeModel.displayRecipes();
-        recipesSection.appendChild(recipeCardDOM);
-        getIngredients(recipe);
-        getAppliance(recipe);
-        getUstensils(recipe);
-       
-    });
+    if( recipesToDisplay.length > 0) {
+        recipesToDisplay.forEach((recipe) => {
+            const recipeModel = recipeFactory(recipe);
+            const recipeCardDOM = recipeModel.displayRecipes();
+            recipesSection.appendChild(recipeCardDOM);
+            getIngredients(recipe);
+            getAppliance(recipe);
+            getUstensils(recipe);
+        });
+    }
+    else {
+        const pMessage = document.createElement('p');
+        pMessage.setAttribute("id", "find_error");
+        pMessage.textContent = "Aucune recette ne correspond à votre critère…"
+        recipesSection.appendChild(pMessage)
+    }
     optionIngredients.innerHTML = "";
     optionAppareil.innerHTML = "";
     optionUstensiles.innerHTML = "";
@@ -81,8 +91,7 @@ function init() {
 
 init();
 
-// utiliser les event focus et blur pour actif ou non
-// à factoriser
+
 dropdown1.onclick = function() {
     dropdown1.classList.toggle("active");
     dropdown1.firstElementChild.setAttribute("placeholder", "recherche un ingredient")
@@ -113,14 +122,12 @@ dropdown3.onclick = function() {
     dropdown2.classList.remove("active");
 }
 
-
-// à factoriser
 function displayDropdownIngredients() {
     ingredientSet.forEach(element => {
         const divIngredient = document.createElement("div");
         divIngredient.setAttribute("class", "option_ingredient");
         divIngredient.setAttribute("id", element);
-        divIngredient.setAttribute("onclick", `onClickTag('ingredient','${element}')`);
+        divIngredient.setAttribute("onclick", `onClickTag(event, 'ingredient','${element}')`);
         divIngredient.textContent = element;
         optionIngredients.appendChild(divIngredient);
     });
@@ -131,7 +138,7 @@ function displayDropdownUstensils() {
         const divUstensil = document.createElement("div");
         divUstensil.setAttribute("class", "option_ustensils");
         divUstensil.setAttribute("id", element);
-        divUstensil.setAttribute("onclick", `onClickTag('ustensil','${element}')`);
+        divUstensil.setAttribute("onclick", `onClickTag(event, 'ustensil','${element}')`);
         divUstensil.textContent = element;
         optionUstensiles.appendChild(divUstensil);
     })
@@ -142,18 +149,17 @@ function displayDropdownAppareils() {
         const divAppareil = document.createElement("div");
         divAppareil.setAttribute("class", "option_appareils");
         divAppareil.setAttribute("id", element);
-        divAppareil.setAttribute("onclick", `onClickTag('appareil','${element}')`);
+        divAppareil.setAttribute("onclick", `onClickTag(event, 'appareil','${element}')`);
         divAppareil.textContent = element;
         optionAppareil.appendChild(divAppareil);
     })
 }
 
-function onClickTag(typeClass, id) {
-    console.log(typeClass, id)
+function onClickTag(event, typeClass, id) {
+    event.stopPropagation()
     if (typeClass == "ingredient" && !activeIngTags.includes(id)) {
         createTag(id, '#3282F7', typeClass);
         activeIngTags.push(id)
-        console.log(recipes)
         rebuildwindow(recipes)
     }
     else
@@ -193,8 +199,6 @@ function createTag(texte, color, category) {
 }
 
 inputSearch.addEventListener("input", (evt) => {
-    filterBySearchWord(evt.value)
-
     displayData()
 })
 
@@ -252,10 +256,9 @@ function suppressElement(id) {
     if (elt_category == "appareil") {
         activeAppTags.splice(activeAppTags.indexOf(id), 1)
     }
-
-    
     elt.remove();
     rebuildwindow(recipes);
+
 }
 
 function closeAllDropdown() {

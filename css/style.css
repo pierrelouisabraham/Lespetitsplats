@@ -384,8 +384,9 @@ margin: 0;
     padding-right: 10px;
 }
 
-/* petit écart entre icone et temps dans les cards 
-selecteur de tag et name card
-
-en dernier si le temps regarder import
-*/
+#find_error {
+    margin-top: 10%;
+    margin-left: 28%;
+    font-size: 30px;
+    font-family: 'DM Sans';
+}

@@ -17,15 +17,31 @@ function getUstensils(data) {
     });
 }
 
-function filterBySearchWord(inputEntry) {
+function filterBySearchWord(inputEntry, recipesAll) {
     texteInput = new RegExp(inputEntry, "i")
-    recipesToDisplay = recipes.filter((recipe) => {
-        if(texteInput.test(recipe.name) || texteInput.test(recipe.description))
-            return recipe;
+    recipesSection.innerHTML = '';
+  
+    recipesToDisplay = recipesAll.filter((recipe) => {
+        let toDisplay = false;
+        if(texteInput.test(recipe.name) || texteInput.test(recipe.description)) {
+            toDisplay = true
+        }
+            
         recipe.ingredients.forEach((ingredient) => {
             if (texteInput.test(ingredient.ingredient))
-                return recipe;
+            toDisplay = true
+                
             })
+        if(toDisplay == true) {
+                const recipeModel = recipeFactory(recipe);
+                const recipeCardDOM = recipeModel.displayRecipes();
+                recipesSection.appendChild(recipeCardDOM);
+                getIngredients(recipe);
+                getAppliance(recipe);
+                getUstensils(recipe);
+               
+                return recipe;
+        }
     }) 
 }
 
@@ -56,7 +72,6 @@ function filterByTag(data) {
                 activeUstTags.every((ustensil) => ustensilsFound.includes(ustensil.toLowerCase())) &&
                 activeAppTags.every((appareil) => appareil.includes(recipe.appliance.toLowerCase())))
     });
-
     return recipesToDisplay;
 }
 
@@ -115,7 +130,3 @@ function displayDropdown(nature, arrayToDisplay) {
         }
     });
 }
-
-/* onClickTag('ingredient','poivron rouge')
-onClickTag('appareil','blender')
-onClickTag('ustensil','moule') */
