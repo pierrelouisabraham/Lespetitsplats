@@ -164,18 +164,18 @@ margin: 0;
     margin-top: 15px;
     width: 170px;
     height: 69px;
-    margin-right: 4%;
+    margin-right: 1%;
 }
 
 .dropdown::before {
     content: "";
     position: absolute;
-    top: 37px;
+    top: 56%;
     right: 20px;
     z-index: 1000;
     width: 8px;
     height: 8px;
-    border: 2px solid #333;
+    border: 2px solid white;
     border-top: 2px solid #fff;
     border-right: 2px solid #fff;
     transform: rotate(-45deg);
@@ -205,7 +205,7 @@ margin: 0;
     outline: none;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     padding:  12px 0px 12px 0px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .dropdown  .input  label {
